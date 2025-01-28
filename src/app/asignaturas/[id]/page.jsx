@@ -11,6 +11,10 @@ async function PaginaAsignatura({ params }) {
     }
   })
 
+  if (!asignatura) {
+      notFound();
+    }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-200 to-blue-500 p-5">
       <div className="flex items-center justify-center min-h-screen">

@@ -1,5 +1,4 @@
 import Modal from "@/components/Modal";
-import ModalEliminar from "@/components/ModalEliminar";
 import { eliminarGrupo, insertarGrupo, modificarGrupo } from "@/lib/actions";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -9,7 +8,9 @@ async function PaginaGrupo() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-green-200 to-blue-500 p-5">
       <h1 className="text-6xl font-bold mb-7">Grupos</h1>
-      <Modal texto="Insertar Grupo">
+
+      <Suspense fallback={<div>Loading...</div>}>
+      <Modal texto="Insertar Grupo" className={"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"}>
         <div className="flex flex-col space-y-4 bg-white p-6 rounded-lg shadow-lg mb-10 ">
           <form
             action={insertarGrupo}
@@ -54,7 +55,6 @@ async function PaginaGrupo() {
           </form>
         </div>
       </Modal>
-      <Suspense fallback={<div>Loading...</div>}>
         <Productos />
       </Suspense>
     </div>
@@ -85,7 +85,7 @@ async function Productos() {
             </p>
           </div>
 
-          <Modal texto="Modificar Grupo">
+          <Modal texto="Modificar Grupo" className={"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"}>
             <div className="flex flex-col space-y-4 bg-white p-6 rounded-lg shadow-lg ">
               <form action={modificarGrupo} className="flex flex-col space-y-2">
                 <input type="hidden" name="id" defaultValue={grupo.id} />
@@ -128,7 +128,7 @@ async function Productos() {
             </div>
           </Modal>
           
-          <ModalEliminar texto="Eliminar Grupo">
+          <Modal texto="Eliminar Grupo" className={"px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300 mb-3 mt-3"}>
           <form action={eliminarGrupo}>
             <input type="hidden" name="id" value={grupo.id} />
             <h1>Esta seguro de que desea eliminar el grupo {grupo.nombre}?</h1>
@@ -139,7 +139,7 @@ async function Productos() {
               Eliminar Grupo
             </button>
           </form>
-        </ModalEliminar>
+        </Modal>
         </div>
       ))}
     </div>

@@ -53,4 +53,103 @@ export async function eliminarGrupo(formData) {
 
     revalidatePath('/grupos');
 }
+export async function insertarAsignatura(formData) {
+    const nombre = formData.get('nombre');
+    const profesor = formData.get('profesor');
+    const num_horas = Number(formData.get('num_horas'));
+
+    await prisma.asignatura.create({
+        data: {
+            nombre,
+            profesor,
+            num_horas
+        }
+    })
+
+    revalidatePath('/asignaturas');
+
+}
+
+export async function modificarAsignatura(formData) {
+    const id = Number(formData.get('id'));
+    const nombre = formData.get('nombre');
+    const profesor = formData.get('profesor');
+    const num_horas = Number(formData.get('num_horas'));
+
+    await prisma.asignatura.update({
+        where: {
+            id: id,
+        },
+        data: {
+            nombre,
+            profesor,
+            num_horas
+        }
+    })
+
+    revalidatePath('/asignaturas');
+}
+
+export async function eliminarAsignatura(formData) {
+    const id = Number(formData.get('id'));
+
+    await prisma.asignatura.delete({
+        where: {
+            id: id,
+        }
+    });
+
+    revalidatePath('/asignaturas');
+}
+export async function insertarAlumno(formData) {
+    const nombre = formData.get('nombre');
+    const fecha_nacimiento = formData.get('fecha_nacimiento');
+    // const foto = formData.get('foto');
+    const tutor_legal = formData.get('tutor_legal');
+
+    await prisma.alumno.create({
+        data: {
+            nombre,
+            fecha_nacimiento,
+            tutor_legal
+        }
+    });
+
+    revalidatePath('/alumnos');
+
+}
+
+export async function modificarAlumno(formData) {
+    const id = Number(formData.get('id'));
+    const nombre = formData.get('nombre');
+    const fecha_nacimiento = formData.get('fecha_nacimiento');
+    // const foto = formData.get('foto');
+    const tutor_legal = formData.get('tutor_legal');
+
+    await prisma.alumno.update({
+        where: {
+            id: id,
+        },
+        data: {
+            nombre,
+            fecha_nacimiento,
+            // foto,
+            tutor_legal
+        }
+    });
+
+    revalidatePath('/alumnos');
+}
+
+export async function eliminarAlumno(formData) {
+    const id = Number(formData.get('id'));
+
+    await prisma.alumno.delete({
+        where: {
+            id: id,
+        }
+    });
+
+    revalidatePath('/alumnos');
+}
 

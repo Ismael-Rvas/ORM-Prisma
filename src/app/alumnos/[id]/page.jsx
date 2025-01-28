@@ -11,6 +11,10 @@ async function PaginaAlumno({ params }) {
     }
   })
 
+  if (!alumno) {
+    notFound();
+  }
+
 //   console.log(grupo);
   return (
     

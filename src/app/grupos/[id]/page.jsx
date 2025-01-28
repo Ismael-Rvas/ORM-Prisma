@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { PrismaClient } from "@prisma/client";
+import { notFound, redirect } from "next/navigation";
 const prisma = new PrismaClient();
 
 async function PaginaGrupo({ params }) {
@@ -10,6 +11,10 @@ async function PaginaGrupo({ params }) {
       id: Number(parametros.id)
     }
   })
+
+  if (!grupo) {
+    notFound();
+  }
 
 //   console.log(grupo);
   return (
